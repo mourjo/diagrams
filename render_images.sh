@@ -3,7 +3,7 @@
 ENDCOLOR="\e[0m"
 BLUE="\e[34m"
 
-FILES=$(git diff origin/main --name-only | rg puml$)
+FILES=$(git diff origin/master --name-only | rg puml$)
 
 echo -e "Rendering: ${BLUE}\n$FILES\n\n${ENDCOLOR}"
 
