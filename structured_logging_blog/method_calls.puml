@@ -1,0 +1,22 @@
+@startuml
+!theme mars
+scale 2
+start
+group LoggingInterceptor.class
+  :MDC.put("REQUEST_METHOD", request.getMethod())
+  MDC.put("TRACE_ID", UUID.randomUUID().toString());
+
+  floating note: MDC contains:\n{\n"REQUEST_METHOD": "POST",\n"TRACE_ID":"uuid"\n}
+end group
+
+group PartyController.class
+  :MDC.put("PARTY_ID", String.valueOf(id));
+  floating note: MDC contains:\n{\n"REQUEST_METHOD": "POST",\n"TRACE_ID":"uuid"\n"PARTY_ID": "1234"\n}
+end group
+
+group DatetimeFormat.class
+  :logger.warn("Could not parse timestamp");
+  floating note: MDC contains:\n{\n"REQUEST_METHOD": "POST",\n"TRACE_ID":"uuid"\n"PARTY_ID": "1234"\n}
+end group
+end
+@enduml

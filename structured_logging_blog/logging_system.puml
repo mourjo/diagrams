@@ -1,0 +1,26 @@
+@startuml
+
+
+!include ../c4_includes/C4_Dynamic.puml
+
+
+scale 2
+
+System_Boundary(docker, "Docker") {
+    Container_Simple(logstash, "Log Ingestor", "Logstash")
+    Container_Simple(kibana, "Logging UI", "Kibana")
+    Container_Simple(es, "Log Storage", "Elasticsearch")
+}
+
+Container_Simple(app, "Java Application", "Jamboree")
+ContainerDb_Simple(file, "File System", "Logs directory")
+Person(dev, "Developer")
+
+Rel(app, file, "Write to log files")
+Rel(logstash, file, "Read log files every minute")
+Rel(logstash, es, "Ingest logs into search index")
+
+Rel(dev, kibana, "Search for logs")
+Rel(kibana, es, "Fetch logs")
+
+@enduml
