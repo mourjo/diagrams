@@ -20,7 +20,7 @@ Rel(app, file, "Write to log files")
 Rel(logstash, file, "Read log files every minute")
 Rel(logstash, es, "Ingest logs into search index")
 
-Rel(dev, kibana, "Search for logs.")
+Rel(dev, kibana, "Search for logs")
 Rel(kibana, es, "Fetch logs")
 
 @enduml
