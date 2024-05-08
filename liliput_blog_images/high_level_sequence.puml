@@ -1,0 +1,20 @@
+@startuml
+title "High level Interaction"
+autonumber "<font color=LightSlateGrey>[0]"
+
+
+Participant "Anon User"
+Participant Alice
+
+Alice -> Liliput: Home page
+Liliput -> Alice : Redirect to Login UI
+Alice -> Liliput: Login with Google
+Liliput -> Alice: Redirect to Liliput
+Alice ->  Liliput: Home page
+Liliput -> Alice : UI with previously shortened links
+Alice -> Liliput: Create new shortlink
+Liliput -> Alice : New short link
+"Anon User" -> Liliput : Expand shortlink 
+Liliput -> "Anon User" : Redirect to original link
+
+@enduml
