@@ -1,0 +1,16 @@
+@startuml
+
+
+!include ../c4_includes/C4_Dynamic.puml
+
+
+scale 2
+
+Container_Simple(apigateway, "API", "Liliput API")
+ContainerDb_Simple(s3, "S3", "Bucket")
+Person(authuser, "Authenticated User")
+Rel(authuser, apigateway, "GET /", http)
+Rel(apigateway, s3, "Return Index.html", S3 service integration)
+
+
+@enduml

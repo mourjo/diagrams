@@ -1,0 +1,18 @@
+@startuml
+
+!include ../c4_includes/C4_Dynamic.puml
+
+scale 2
+Person(anon, "Anonymous User")
+Container_Simple(apigateway, "API", "Liliput API")
+Container_Simple("ExpandLinkHandler", "Lambda Function", "ExpandLinkHandler")
+ContainerDb_Simple(ddb, "DynamoDB", "Links Table")
+
+
+Rel(anon, apigateway, "GET /l/short-link")
+Rel(apigateway, "ExpandLinkHandler", "Invoke", Lambda proxy integration)
+Rel("ExpandLinkHandler", ddb, "Lookup short link and increment usage count")
+Rel("ExpandLinkHandler", apigateway, "Proxy response")
+Rel(apigateway, anon, "Redirect (302) to original link")
+
+@enduml

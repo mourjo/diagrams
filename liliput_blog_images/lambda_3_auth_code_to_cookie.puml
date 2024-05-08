@@ -1,0 +1,23 @@
+@startuml
+
+
+!include ../c4_includes/C4_Dynamic.puml
+
+scale 2
+
+Person(user, "User")
+Container_Simple(cognitoui, "UI", "Cognito Hosted UI")
+Container_Simple("AuthCodeToCookieHandler", "Lambda Function", "AuthCodeToCookieHandler")
+
+
+Container_Simple(cognito, "API", "Cognito")
+
+
+
+Rel(user, cognitoui, "Enter login credentials")
+Rel(cognitoui, user, "Authorization Code")
+Rel(user, "AuthCodeToCookieHandler", "Authorization\ncode")
+Rel("AuthCodeToCookieHandler", cognito, "POST /oauth2/token")
+Rel(cognito, "AuthCodeToCookieHandler", "Access token, ID token and refresh token")
+Rel("AuthCodeToCookieHandler", user, "200 with HTTP-only cookie")
+@enduml

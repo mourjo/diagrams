@@ -1,0 +1,23 @@
+@startuml
+
+
+!include ../c4_includes/C4_Dynamic.puml
+
+scale 2
+
+Container_Simple(apigateway, "API", "Liliput API")
+Container_Simple("ListLinksHandler", "Lambda Function", "ListLinksHandler")
+Container_Simple("CookieAuthorizer", "Lambda Function", "CookieAuthorizer")
+ContainerDb_Simple(ddb, "DynamoDB", "Links Table")
+Container_Simple(cognito, "API Backend", "Cognito")
+Person(authuser, "Authenticated User")
+
+Rel(authuser, apigateway, "GET /links", http)
+Rel(apigateway, "CookieAuthorizer", "Verify\ncookies")
+Rel("CookieAuthorizer", cognito, "Decode/Validate JWT signature against public key")
+Rel("CookieAuthorizer", apigateway, "User information")
+Rel_R(apigateway, "ListLinksHandler", "Invoke", Lambda proxy integration)
+Rel("ListLinksHandler", ddb, "Fetch user's links with usage counts")
+
+
+@enduml

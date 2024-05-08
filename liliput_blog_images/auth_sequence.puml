@@ -14,10 +14,10 @@ Browser -> "Cognito": <b>GET</b> /oauth2/authorize (Client ID + PKCE Challenge)
 "Cognito" -> Browser: <font color=ForestGreen><b>200</b> Login UI
 Browser -> "Cognito": <b>POST</b> Username and Password
 "Cognito" -> Browser: <font color=ForestGreen><b>302</b> Redirect with Single-use Authorization Code
-Browser -> "AuthExchanger Lambda": <b>POST</b> Authorization Code + PKCE Code
-"AuthExchanger Lambda" -> "Cognito": <b>POST</b> /oauth2/token
-"Cognito" -> "AuthExchanger Lambda": <font color=ForestGreen><b>200</b> Multi-use JWT Access Token
-"AuthExchanger Lambda" -> Browser: <font color=ForestGreen><b>200</b> JWT Access Token as Http-Only Cookie
+Browser -> "AuthCodeToCookieHandler Lambda": <b>POST</b> Authorization Code + PKCE Code
+"AuthCodeToCookieHandler Lambda" -> "Cognito": <b>POST</b> /oauth2/token
+"Cognito" -> "AuthCodeToCookieHandler Lambda": <font color=ForestGreen><b>200</b> Multi-use JWT Access Token
+"AuthCodeToCookieHandler Lambda" -> Browser: <font color=ForestGreen><b>200</b> JWT Access Token as Http-Only Cookie
 
 == Authenticated User ==
 
