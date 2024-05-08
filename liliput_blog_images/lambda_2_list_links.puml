@@ -5,7 +5,7 @@
 
 scale 2
 
-Container_Simple(apigateway, "API", "Liliput API")
+Container_Simple(apigateway, "API Gateway", "Liliput API")
 Container_Simple("ListLinksHandler", "Lambda Function", "ListLinksHandler")
 Container_Simple("CookieAuthorizer", "Lambda Function", "CookieAuthorizer")
 ContainerDb_Simple(ddb, "DynamoDB", "Links Table")

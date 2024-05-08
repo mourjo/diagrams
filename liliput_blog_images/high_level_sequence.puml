@@ -14,7 +14,7 @@ Alice ->  Liliput: Home page
 Liliput -> Alice : UI with previously shortened links
 Alice -> Liliput: Create new shortlink
 Liliput -> Alice : New short link
-"Anon User" -> Liliput : Expand shortlink 
+"Anon User" -> Liliput : Expand shortlink
 Liliput -> "Anon User" : Redirect to original link
 
 @enduml
