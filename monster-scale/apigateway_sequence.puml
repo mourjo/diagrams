@@ -1,0 +1,56 @@
+@startuml
+!theme plain
+
+<style>
+sequenceDiagram {
+  group {
+    LineThickness 1
+    LineColor RoyalBlue
+    LineStyle 10
+    padding 50
+    margin 50
+    BackGroundColor Transparent
+  }
+  groupHeader {
+    FontStyle plain
+    BackGroundColor RoyalBlue
+    LineColor RoyalBlue
+    FontColor White
+    LineStyle 0
+    padding 10
+    margin 10
+  }
+}
+</style>
+
+
+scale 2
+autonumber
+
+box "Team X" #OldLace
+actor "Customer" as User
+participant "Mobile\nBackend" as ServiceX
+end box
+
+participant "Service Mesh" as Mesh
+
+box "Team Y" #MintCream
+participant "Inventory\nService" as ServiceY
+database "Database" as DB
+end box
+
+User -> ServiceX: List all products
+group Latency Increase
+ServiceX -> Mesh: <b>GET</b> /catalog
+
+Mesh -> ServiceY: <b>GET</b> /catalog
+ServiceY -> DB: Query
+DB -> ServiceY: Results
+ServiceY -> Mesh: Catalog Response
+Mesh -> ServiceX: Catalog Response
+
+end group
+ServiceX -> User: List of products
+
+'right footer \n<i>Generated on %date("dd MMMM YYYY' at 'hh:mm aa z")</i>
+@enduml
