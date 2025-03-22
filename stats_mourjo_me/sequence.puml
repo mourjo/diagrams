@@ -1,0 +1,52 @@
+@startuml
+!theme plain
+
+<style>
+sequenceDiagram {
+  group {
+    LineThickness 1
+    LineColor RoyalBlue
+    LineStyle 10
+    padding 50
+    margin 50
+    BackGroundColor Transparent
+  }
+  groupHeader {
+    FontStyle plain
+    BackGroundColor RoyalBlue
+    LineColor RoyalBlue
+    FontColor White
+    LineStyle 0
+    padding 10
+    margin 10
+  }
+}
+</style>
+
+
+scale 2
+autonumber
+title "Analytics with Goatcounter"
+actor user as "Browser"
+participant mme as "Github Pages"
+
+
+box "GCP" #OldLace
+participant gc as "GoatCounter"
+end box
+
+box "Supabase" #MintCream
+database pg as "PosgtreSQL"
+end box
+
+user <-> mme: GET mourjo.me/**blog**/
+user <-> gc: GET **stats**.mourjo.me/**count.js**
+user <-> gc: POST **stats**.mourjo.me/**count**
+gc <-> pg: Persist analytics
+
+user -> gc: GET **stats**.mourjo.me\n(authenticated users)
+gc <-> pg: Query analytics
+gc -> user: Goatcounter **dashboard**
+
+right footer \n<i>Generated on %date("dd MMMM YYYY' at 'hh:mm aa z")</i>
+@enduml
